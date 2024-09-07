@@ -30,9 +30,12 @@ const registerUser = async (req, res) => {
         
         res.status(201).json({ message: "User registered. Please check your email to activate your account." });
     } catch (err) {
-        console.error('Error in registration:', error);
-    res.status(500).json({ error: 'An error occurred during registration' });
-    }
+        console.error('Error in registration:', err);
+        if (err.code === 'EAUTH') {
+            res.status(500).json({ err: 'Email authentication failed. Please contact support.' });
+          } else {
+            res.status(500).json({ err: 'An error occurred during registration', details: err.message });
+    }}
 };
 
 const activateUser = async (req, res) => {
