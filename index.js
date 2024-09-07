@@ -1,14 +1,27 @@
 const express = require('express');
+const cors = require('cors');
 const { mongoConnect } = require("./connet");
 const urlRoute = require("./routes/url");
 const authRoute = require("./routes/auth");
 const authMiddleware = require('./middleware/authMiddleware');
 const URL = require('./MODELS/url');
+
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-
+// CORS configuration options
+const corsOptions = {
+    // Option 1: Allow all origins (least secure, most permissive)
+    origin: '*',
+    
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 204,
+  };
+  
+  app.use(cors(corsOptions));
 const PORT = process.env.PORT || 8005;
 
 mongoConnect(process.env.MONGODB_URL)
