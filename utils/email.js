@@ -33,7 +33,7 @@ const sendEmail = async (to, subject, text) => {
        return info;
     } catch (err) {
         console.error("Error sending email:", err);
-        throw error;
+        throw err;
     }
 };
 
