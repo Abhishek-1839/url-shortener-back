@@ -10,6 +10,7 @@ const generateActivationToken = (id) => {
 };
 
 const registerUser = async (req, res) => {
+    console.log('Received registration request:', req.body);
     const { firstName, lastName, email, password } = req.body;
     try {
         const user = await User.create({ firstName, lastName, email, password });
@@ -21,11 +22,16 @@ const registerUser = async (req, res) => {
         await user.save();
 
         const activationLink = `http://localhost:8005/auth/activate/${activationToken}`;
-        await sendEmail(email, 'Activate your account', `Click this link to activate your account: ${activationLink}`);
-
+        // await sendEmail(email, 'Activate your account', `Click this link to activate your account: ${activationLink}`);
+        
+        console.log('Sending registration email to:', req.body.email);
+        await sendEmail(req.body.email, 'Registration Successful', 'Welcome to our service!');
+        console.log('Registration email sent successfully');
+        
         res.status(201).json({ message: "User registered. Please check your email to activate your account." });
     } catch (err) {
-        res.status(500).json({ error: "Internal server error" });
+        console.error('Error in registration:', error);
+    res.status(500).json({ error: 'An error occurred during registration' });
     }
 };
 

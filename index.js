@@ -5,6 +5,7 @@ const urlRoute = require("./routes/url");
 const authRoute = require("./routes/auth");
 const authMiddleware = require('./middleware/authMiddleware');
 const URL = require('./MODELS/url');
+const { sendEmail } = require('./emailConfig');
 
 require('dotenv').config();
 
@@ -30,6 +31,15 @@ mongoConnect(process.env.MONGODB_URL)
 
 app.use("/auth", authRoute);
 app.use("/url", authMiddleware, urlRoute);
+
+app.get('/test-email', async (req, res) => {
+    try {
+      await sendEmail('abhisinghbabu20@gmail.com', 'Test Subject', 'This is a test email');
+      res.send('Email sent successfully');
+    } catch (error) {
+      res.status(500).send('Error sending email: ' + error.message);
+    }
+  });
 
 app.get('/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
