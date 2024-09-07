@@ -22,10 +22,10 @@ const registerUser = async (req, res) => {
         await user.save();
 
         const activationLink = `http://localhost:8005/auth/activate/${activationToken}`;
-        // await sendEmail(email, 'Activate your account', `Click this link to activate your account: ${activationLink}`);
+        await sendEmail(req.body.email, 'Activate your account Registration Successful, Welcome to our service!', `Click this link to activate your account: ${activationLink}`);
         
         console.log('Sending registration email to:', req.body.email);
-        await sendEmail(req.body.email, 'Registration Successful', 'Welcome to our service!');
+        // await sendEmail(req.body.email, );
         console.log('Registration email sent successfully');
         
         res.status(201).json({ message: "User registered. Please check your email to activate your account." });
