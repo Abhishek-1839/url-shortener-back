@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
         user.activationToken = activationToken;
         await user.save();
 
-        const activationLink = `http://localhost:8005/auth/activate/${activationToken}`;
+        const activationLink = `https://url-shortener-back-hj9u.onrender.com/auth/activate/${activationToken}`;
         await sendEmail(req.body.email, 'Activate your account Registration Successful, Welcome to our service!', `Click this link to activate your account: ${activationLink}`);
         
         console.log('Sending registration email to:', req.body.email);
