@@ -1,14 +1,18 @@
 const express = require('express');
+const authMiddleware = require('../middleware/authMiddleware');
 const {
     registerUser,
     activateUser,
     loginUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    getMe
 } = require('../controllers/auth');
 
 const router = express.Router();
 
+
+router.get('/me', authMiddleware, getMe);
 router.post('/register', registerUser);
 router.get('/activate/:token', activateUser);
 router.post('/login', loginUser);

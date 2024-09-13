@@ -7,12 +7,13 @@ async function handleUrl(req, res){
     if(!body.url) return res.status(400).json({error : "url is required"})
     const shortingId = shortid.generate();
     try{
+    
     await URL.create({
         shortId: shortingId,
         redirectURL: body.url,
         visithistory:[],
     });
-
+    // console.log(redirectURL);
     return res.json({ id: shortingId});
 }
 catch(err){
