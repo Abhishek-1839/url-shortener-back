@@ -21,5 +21,14 @@ catch(err){
     return res.status(500).json({error : "Internal error"});
 }
 }
+async function getCountOfUrls(req, res) {
+    try {
+        const count = await URL.countDocuments(); // Count all documents in the collection
+        return res.json({ count });
+    } catch (err) {
+        console.error("Error getting URL count:", err);
+        return res.status(500).json({ error: "Internal error" });
+    }
+}
 
-module.exports = {handleUrl};
+module.exports = { handleUrl, getCountOfUrls };
