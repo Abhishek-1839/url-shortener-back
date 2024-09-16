@@ -92,7 +92,7 @@ const loginUser = async (req, res) => {
         res.cookie('jwtToken', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',  // Use secure in production
-            sameSite: 'Strict' // Prevent CSRF
+            sameSite: 'None' // Prevent CSRF
         });
 
         // For simplicity, returning user info
