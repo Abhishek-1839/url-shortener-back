@@ -19,7 +19,7 @@ app.use(cookieParser());
 // CORS configuration options
 const corsOptions = {
     // Option 1: Allow all origins (least secure, most permissive)
-    origin: 'http://localhost:5173',
+    origin: 'https://jovial-selkie-15176d.netlify.app',
     
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
